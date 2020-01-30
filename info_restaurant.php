@@ -18,9 +18,8 @@ foreach ($image_reference as &$item){
     foreach ($images as &$image){
         array_push($image_path,['IMAGE_PATH'=> $image['IMAGE_PATH'], 'IMAGE_DESCRIPTION'=> $image['IMAGE_DESCRIPTION'], 'IMAGE_ID'=>$image['IMAGE_ID'],'IMAGE_POSITION' => $count]);
         $count++;
-    }
+    }}
 $reviews = $database -> getRows('review',"*",$where);
-}
 ?>
     <main role="main">
         <div class=" bg-light container-fluid">
@@ -69,14 +68,14 @@ $reviews = $database -> getRows('review',"*",$where);
                     <div class="">
                         <h2>Leave a review</h2>
                     </div>
-                    <div class="form-group">
-                    <form method="post" class="col container-fluid responsive-table" action="process.php?action=addreview&rid=<?php echo $restaurant_id ?>" >
+                    <form method="POST" class="col container-fluid responsive-table" action="process.php?action=addreview&rid=<?php echo $restaurant_id ?>" >
+                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter Your Name name">
+                        <input type="text" class="form-control" name="name" placeholder="Enter Your Name name">
                     </div>
                     <div class="form-group">
                         <label for="rating">Rating select</label>
-                        <select class="form-control" id="rating">
+                        <select class="form-control" name="rating">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -86,11 +85,9 @@ $reviews = $database -> getRows('review',"*",$where);
                     </div>
                     <div class="form-group">
                     <label for="review">Description</label>
-                    <textarea class="form-control" id="review" required placeholder="Leave your Review"></textarea>
+                    <textarea class="form-control" name="review" required placeholder="Leave your Review"></textarea>
                     </div>
-                    <div class="form-group">
-                    </div>
-                    <input type="submit" value="SUBMIT">
+                    <input type="submit" name="submit" class="btn btn-primary" value="SUBMIT"/>
 
                     </form>
                 </div>
@@ -106,7 +103,10 @@ $reviews = $database -> getRows('review',"*",$where);
                     <h6> <?php echo 'by '.$review['REVIEW_USER']; ?></h6>
                     <hr>
                 </div>
-    <?php } ?>
+    <?php } if (empty($reviews)) {?>
+                    <div class="text center">
+    <h3>No reviews yet </h3> <?php }?>
+                    </div>
                 </div>
             </div>
         </div>

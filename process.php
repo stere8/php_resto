@@ -67,6 +67,9 @@ switch ($_GET['action']){
     case 'addreview':
         $database = new Database();
         $restaurant_id =  $_GET['rid'];
+        echo strip_tags($_POST['name']);
+        echo strip_tags($_POST['review']);
+        echo $_POST['rating'];
         $data=[
             'REVIEW_USER' => strip_tags($_POST['name']),
             'RESTAURANT_ID' => $_GET['rid'],
@@ -79,8 +82,11 @@ switch ($_GET['action']){
         header('Location:'.$dest);
         break;
 
-
-
+    case 'search' :
+        $querry = strip_tags($_POST['querry']);
+        $dest = 'search_results.php?q='.$querry;
+        header('Location:'.$dest);
+        break;
 
 
 }
